@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tumulit.com/sitemap.xml
+
+# Ulithouse — Thai Character IP by Artist Tum Ulit
+# https://tumulit.com
