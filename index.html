@@ -292,6 +292,21 @@
 
     .container { max-width: 540px; margin: 0 auto; padding: 40px 20px 60px; }
 
+    .site-nav {
+      display: flex; justify-content: center; gap: 24px;
+      margin-bottom: 20px; padding: 12px 0;
+      opacity: 0; animation: fadeUp 0.4s ease forwards;
+    }
+
+    .site-nav a {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em;
+      color: var(--text-light); text-decoration: none; transition: color 0.2s;
+      padding-bottom: 2px;
+    }
+
+    .site-nav a:hover { color: var(--text-primary); }
+    .site-nav a.active { color: var(--text-primary); border-bottom: 1.5px solid var(--accent-terracotta); }
+
     /* ===== HERO ===== */
     .hero-card {
       background: var(--card-bg);
@@ -557,6 +572,12 @@
 <body>
 
   <div class="container">
+
+    <!-- ===== NAV ===== -->
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="/" class="active">Home</a>
+      <a href="/about">About</a>
+    </nav>
 
     <!-- ===== HERO ===== -->
     <header class="hero-card" role="banner">
