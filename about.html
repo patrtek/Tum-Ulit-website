@@ -298,6 +298,34 @@
     .footer-flower { display: block; margin: 0 auto 10px; color: var(--text-light); opacity: 0.4; font-size: 1.2rem; }
     .footer-contact { margin-top: 6px; font-size: 0.72rem; }
 
+    /* Lightbox */
+    .gallery img { cursor: pointer; transition: opacity 0.2s; }
+    .gallery img:hover { opacity: 0.85; }
+
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.88); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center;
+      cursor: zoom-out; padding: 24px;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .lightbox.active { display: flex; opacity: 1; }
+    .lightbox img {
+      max-width: 92vw; max-height: 90vh; border-radius: 12px;
+      object-fit: contain; box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+      transform: scale(0.92); transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .lightbox.active img { transform: scale(1); }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 24px;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.12); border: none;
+      color: #fff; font-size: 1.4rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
     @media (max-width: 580px) {
@@ -414,7 +442,7 @@
     <h2 class="section-title">Exhibition Documentation</h2>
     <div class="gallery">
       <img src="gallery-01.png" alt="Tum Ulit exhibition — Who's Cutting Onions solo show at River City Bangkok, featuring character paintings and large-scale sculptures" loading="lazy">
-      <img src="gallery-02.png" alt="Tum Ulit artwork — character paintings and hand-finished resin sculpture from the Bittersweet series" loading="lazy">
+      <img src="gallery-02.png" alt="ULIT HOUSE: Where Our Feelings Live — Tum Ulit's character retail space and gallery shop featuring Pandao merchandise and original character products" loading="lazy">
       <img src="gallery-03.png" alt="Tum Ulit exhibition — immersive installation with projection art and character paintings at River City Bangkok" loading="lazy">
       <img src="gallery-04.png" alt="Tum Ulit exhibition — To the Moon and Never Back, featuring illuminated moon sculptures and published art book" loading="lazy">
     </div>
@@ -487,6 +515,38 @@
   </footer>
 
 </div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Image preview">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <img src="" alt="">
+</div>
+
+<script>
+(function(){
+  const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('img');
+  const lbClose = lb.querySelector('.lightbox-close');
+
+  document.querySelectorAll('.gallery img').forEach(function(img){
+    img.addEventListener('click', function(){
+      lbImg.src = this.src;
+      lbImg.alt = this.alt;
+      lb.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function close(){
+    lb.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  lb.addEventListener('click', function(e){ if(e.target !== lbImg) close(); });
+  lbClose.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+})();
+</script>
 
 </body>
 </html>
